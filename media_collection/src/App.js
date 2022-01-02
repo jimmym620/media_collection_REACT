@@ -1,7 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
-import Button from '@mui/material/Button'
 
 function App() {
     const [title, setTitle] = useState("");
@@ -11,7 +10,7 @@ function App() {
         type: type,
     });
 
-    const handleSubmit = () => {
+    const handleTitleSubmit = () => {
         setFormData({
             title,
             type,
@@ -25,7 +24,7 @@ function App() {
                 <input type="text" onChange={(e) => setTitle(e.target.value)} />
                 <label htmlFor="typeInp">Type:</label>
                 <input type="text" onChange={(e) => setType(e.target.value)} />
-                <Button variant="contained" onClick={handleSubmit}>Submit</Button>
+                <button onClick={handleTitleSubmit}>Submit</button>
             </div>
             <div>
                 <table>
