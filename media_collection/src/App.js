@@ -1,6 +1,8 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useState, useEffect } from "react";
+import Table from "./Table";
+import Modal from "./Modal";
 
 function App() {
     const [title, setTitle] = useState("");
@@ -8,8 +10,10 @@ function App() {
     const [year, setYear] = useState("");
 
     const [list, setList] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [itemEdit, setItemEdit] = useState({});
 
-    const handleTitleSubmit = () => {
+    const handleDataSubmit = () => {
         const formData = {
             id: new Date().getTime().toString(),
             title,
@@ -31,14 +35,25 @@ function App() {
     };
 
     const editItemInList = (id) => {
+        console.log(id);
         const itemToEdit = list.find((item) => item.id === id);
-        itemToEdit.title = "bigner";
         console.log(itemToEdit);
+        setItemEdit({ itemToEdit });
     };
 
     const removeFromList = (id) => {
         setList(list.filter((item) => item.id !== id));
     };
+
+    const handleShowModal = () => {
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        console.log("closed");
+        setShowModal(false);
+    };
+
     return (
         <div className="App flex flex-col min-h-screen">
             <header>
@@ -84,7 +99,7 @@ function App() {
                     <div className="flex flex-col w-1/2 mx-auto mt-8">
                         <button
                             className="formButton"
-                            onClick={handleTitleSubmit}
+                            onClick={handleDataSubmit}
                         >
                             Submit
                         </button>
@@ -93,47 +108,27 @@ function App() {
                         </button>
                     </div>
                 </div>
-                <div className="flex justify-center m-8">
-                    <table className="table-fixed w-1/2">
-                        <thead className="text-center bg-gray-400">
-                            <tr>
-                                <th>Title</th>
-                                <th>Type</th>
-                                <th>Year</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody className="bg-gray-200">
-                            {list.map((item) => {
-                                return (
-                                    <tr className="break-words" key={item.id}>
-                                        <th>{item.title}</th>
-                                        <th>{item.type}</th>
-                                        <th>{item.year}</th>
-                                        <th className="w-1/2">
-                                            <button
-                                                className="tableRemoveBTN"
-                                                onClick={() =>
-                                                    removeFromList(item.id)
-                                                }
-                                            >
-                                                Remove
-                                            </button>
-                                            <button
-                                                className="tableRemoveBTN"
-                                                onClick={() =>
-                                                    editItemInList(item.id)
-                                                }
-                                            >
-                                                Edit
-                                            </button>
-                                        </th>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
+                <div>
+                    <Modal
+                        list={list}
+                        show={showModal}
+                        handleCloseModal={handleCloseModal}
+                        title={title}
+                        setTitle={setTitle}
+                        type={type}
+                        setType={setType}
+                        year={year}
+                        setYear={setYear}
+                        itemEdit={itemEdit}
+                        handleDataSubmit={handleDataSubmit}
+                    />
                 </div>
+                <Table
+                    list={list}
+                    removeFromList={removeFromList}
+                    editItemInList={editItemInList}
+                    handleShowModal={handleShowModal}
+                />
             </main>
             <footer>yo</footer>
         </div>
