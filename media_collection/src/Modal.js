@@ -37,7 +37,7 @@ const Modal = ({
                         onChange={(e) => setTitle(e.target.value)}
                     />
                 </div>
-                <div className="formInputContainer">
+                <div className=" formInputContainer">
                     <label className="formLabel" htmlFor="typeInp">
                         Type:
                     </label>

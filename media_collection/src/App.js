@@ -1,18 +1,27 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useState, useEffect } from "react";
 import Table from "./Table";
 import Modal from "./Modal";
+
+const getLocalStorage = () => {
+    let list = localStorage.getItem("mediaCollectionList");
+    if (list) {
+        return JSON.parse(localStorage.getItem("mediaCollectionList"));
+    } else {
+        return [];
+    }
+};
 
 function App() {
     const [title, setTitle] = useState("");
     const [type, setType] = useState("");
     const [year, setYear] = useState("");
 
-    const [list, setList] = useState([]);
+    const [list, setList] = useState(getLocalStorage());
     const [showModal, setShowModal] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [itemEdit, setItemEdit] = useState([]);
+    // Copy of the item to be edited
     const prevItemEdit = { ...itemEdit };
     const handleDataSubmit = () => {
         if (editMode) {
@@ -34,6 +43,7 @@ function App() {
                     setYear("");
                 }
             }
+            localStorage.setItem("mediaCollectionList", JSON.stringify(list));
             setEditMode(false);
         } else {
             const formData = {
@@ -53,25 +63,43 @@ function App() {
         }
     };
 
+    /**
+     * Clear the entire collection of items
+     */
     const clearList = () => {
         setList([]);
     };
-
+    /**
+     * Edit an item in the media collection
+     * @param {Number} id - item id
+     */
     const editItemInList = (id) => {
         setItemEdit(list.find((item) => item.id === id));
     };
-
+    /**
+     * Remove an item from the media collection
+     * @param {Number} id - item id
+     */
     const removeFromList = (id) => {
         setList(list.filter((item) => item.id !== id));
     };
 
+    /**
+     * Show the Modal/ Popup
+     */
     const handleShowModal = () => {
         setShowModal(true);
     };
-
+    /**
+     * Close the Modal/ Popup
+     */
     const handleCloseModal = () => {
         setShowModal(false);
     };
+
+    useEffect(() => {
+        localStorage.setItem("mediaCollectionList", JSON.stringify(list));
+    }, [list]);
 
     return (
         <div className="App flex flex-col min-h-screen">
@@ -87,6 +115,7 @@ function App() {
                         <input
                             className=" w-full"
                             type="text"
+                            placeholder='Dune, Monsters Inc.'
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                         />
@@ -99,6 +128,7 @@ function App() {
                             className="w-full"
                             name="typeInp"
                             type="text"
+                            placeholder="Book, Film, Comic, Audio"
                             value={type}
                             onChange={(e) => setType(e.target.value)}
                         />
@@ -111,6 +141,7 @@ function App() {
                             className="w-full"
                             name="yearInp"
                             type="number"
+                            placeholder="2003"
                             value={year}
                             onChange={(e) => setYear(e.target.value)}
                         />
