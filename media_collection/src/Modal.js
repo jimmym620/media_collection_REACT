@@ -3,11 +3,8 @@ import React from "react";
 const Modal = ({
     handleCloseModal,
     show,
-    title,
     setTitle,
-    type,
     setType,
-    year,
     setYear,
     itemEdit,
     handleDataSubmit,
@@ -17,10 +14,14 @@ const Modal = ({
         : "modal display-none";
 
     const handleCompleteEdit = () => {
+        // if (Object.values(itemEdit).some((x) => x === null || x === "")) {
+        //     return;
+        // }
+
         handleDataSubmit();
         handleCloseModal();
-        
     };
+
     return (
         <div className={showHideClassName}>
             <section className="modal-main">
@@ -28,10 +29,11 @@ const Modal = ({
                     <label className="formLabel" htmlFor="titleInp">
                         Title:
                     </label>
+
                     <input
                         className=" w-full border border-black "
                         type="text"
-                        value={itemEdit.title}
+                        placeholder={itemEdit.title}
                         onChange={(e) => setTitle(e.target.value)}
                     />
                 </div>
@@ -43,7 +45,7 @@ const Modal = ({
                         className="w-full border border-black"
                         name="typeInp"
                         type="text"
-                        value={type}
+                        placeholder={itemEdit.type}
                         onChange={(e) => setType(e.target.value)}
                     />
                 </div>
@@ -55,7 +57,7 @@ const Modal = ({
                         className="w-full border border-black"
                         name="yearInp"
                         type="number"
-                        value={year}
+                        placeholder={itemEdit.year}
                         onChange={(e) => setYear(e.target.value)}
                     />
                 </div>

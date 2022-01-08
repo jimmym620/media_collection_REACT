@@ -11,22 +11,45 @@ function App() {
 
     const [list, setList] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    const [itemEdit, setItemEdit] = useState({});
-
+    const [editMode, setEditMode] = useState(false);
+    const [itemEdit, setItemEdit] = useState([]);
+    const prevItemEdit = { ...itemEdit };
     const handleDataSubmit = () => {
-        const formData = {
-            id: new Date().getTime().toString(),
-            title,
-            type,
-            year,
-        };
-        if (Object.values(formData).some((x) => x === null || x === "")) {
-            return;
+        if (editMode) {
+            if (title !== prevItemEdit.title) {
+                if (title !== "") {
+                    itemEdit.title = title;
+                    setTitle("");
+                }
+            }
+            if (type !== prevItemEdit.type) {
+                if (type !== "") {
+                    itemEdit.type = type;
+                    setType("");
+                }
+            }
+            if (year !== prevItemEdit.year) {
+                if (year !== "") {
+                    itemEdit.year = year;
+                    setYear("");
+                }
+            }
+            setEditMode(false);
         } else {
-            setList([...list, formData]);
-            setTitle("");
-            setType("");
-            setYear("");
+            const formData = {
+                id: new Date().getTime().toString(),
+                title,
+                type,
+                year,
+            };
+            if (Object.values(formData).some((x) => x === null || x === "")) {
+                return;
+            } else {
+                setList([...list, formData]);
+                setTitle("");
+                setType("");
+                setYear("");
+            }
         }
     };
 
@@ -35,10 +58,7 @@ function App() {
     };
 
     const editItemInList = (id) => {
-        console.log(id);
-        const itemToEdit = list.find((item) => item.id === id);
-        console.log(itemToEdit);
-        setItemEdit({ itemToEdit });
+        setItemEdit(list.find((item) => item.id === id));
     };
 
     const removeFromList = (id) => {
@@ -50,7 +70,6 @@ function App() {
     };
 
     const handleCloseModal = () => {
-        console.log("closed");
         setShowModal(false);
     };
 
@@ -113,11 +132,8 @@ function App() {
                         list={list}
                         show={showModal}
                         handleCloseModal={handleCloseModal}
-                        title={title}
                         setTitle={setTitle}
-                        type={type}
                         setType={setType}
-                        year={year}
                         setYear={setYear}
                         itemEdit={itemEdit}
                         handleDataSubmit={handleDataSubmit}
@@ -128,6 +144,7 @@ function App() {
                     removeFromList={removeFromList}
                     editItemInList={editItemInList}
                     handleShowModal={handleShowModal}
+                    setEditMode={setEditMode}
                 />
             </main>
             <footer>yo</footer>

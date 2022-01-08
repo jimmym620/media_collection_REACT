@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-const Table = ({ list, removeFromList, editItemInList, handleShowModal }) => {
+const Table = ({ list, removeFromList, editItemInList, handleShowModal, setEditMode }) => {
     return (
         <div className="flex justify-center m-8">
             <table className="table-fixed w-1/2">
@@ -30,8 +30,8 @@ const Table = ({ list, removeFromList, editItemInList, handleShowModal }) => {
                                         className="tableRemoveBTN"
                                         onClick={() => {
                                             editItemInList(item.id);
-
-                                            // handleShowModal();
+                                            setEditMode(true);
+                                            handleShowModal();
                                         }}
                                     >
                                         Edit
