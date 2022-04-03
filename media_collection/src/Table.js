@@ -1,6 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 
-const Table = ({ list, removeFromList, editItemInList, handleShowModal, setEditMode }) => {
+const Table = ({
+    list,
+    removeFromList,
+    editItemInList,
+    handleShowModal,
+    setEditMode,
+}) => {
     return (
         <div className="flex justify-center m-8">
             <table className="table-fixed w-1/2">
