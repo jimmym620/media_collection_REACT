@@ -178,7 +178,7 @@ function App() {
                     setEditMode={setEditMode}
                 />
             </main>
-            <footer>yo</footer>
+            <footer>2022</footer>
         </div>
     );
 }
