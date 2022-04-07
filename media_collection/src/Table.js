@@ -8,9 +8,9 @@ const Table = ({
     setEditMode,
 }) => {
     return (
-        <div className="flex justify-center m-8">
-            <table className="table-fixed w-1/2">
-                <thead className="text-center bg-gray-400">
+        <div className="flex justify-center w-full">
+            <table className="table-fixed sm:w-full md:w-1/2 ">
+                <thead className=" bg-gray-400">
                     <tr>
                         <th>Title</th>
                         <th>Type</th>

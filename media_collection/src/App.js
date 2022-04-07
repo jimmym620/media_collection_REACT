@@ -107,7 +107,7 @@ function App() {
                 <h1>My Media Collection</h1>
             </header>
             <main className="flex-grow">
-                <div className="form w-1/4 flex-row mx-auto bg-gray-200 m-8 p-8 ">
+                <div className="form md:w-1/4 flex-row mx-auto bg-gray-200 m-4 p-4 ">
                     <div className="formInputContainer ">
                         <label className="formLabel" htmlFor="titleInp">
                             Title:
@@ -146,7 +146,7 @@ function App() {
                             onChange={(e) => setYear(e.target.value)}
                         />
                     </div>
-                    <div className="flex flex-col w-1/2 mx-auto mt-8">
+                    <div className="flex flex-col w-1/2 mx-auto mt-2">
                         <button
                             className="formButton"
                             onClick={handleDataSubmit}

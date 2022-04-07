@@ -35,7 +35,7 @@
     }
 
     .tableRemoveBTN {
-        @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center;
+        @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded text-center;
     }
 
     .modal {
@@ -43,7 +43,7 @@
     }
 
     .modal-main {
-        @apply fixed bg-white w-1/4 h-1/4 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6;
+        @apply fixed bg-white md:w-1/4 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-2;
     }
 
     .display-block {
